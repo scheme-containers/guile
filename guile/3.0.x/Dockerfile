@@ -37,6 +37,11 @@ RUN ./configure
 RUN make -j`nproc`
 RUN make install
 
+FROM debian:buster-slim
+RUN apt-get update && apt-get -y --no-install-recommends install \
+       libltdl7
+COPY --from=build /usr/local/ /usr/local/
 COPY scheme-script /usr/local/bin/
 RUN ln -s /usr/local/bin/guile /usr/local/bin/scheme-banner
+RUN ldconfig || true
 CMD ["scheme-banner"]
