@@ -1,3 +1,2 @@
 #!/bin/bash
-read_enable="(read-enable 'r6rs-hex-escapes) (read-enable 'hungry-eol-escapes)"
-exec guile -x .guile.sls -x .sls -l <(echo "$read_enable") -ds "$@"
+exec guile --r6rs -ds "$@"
