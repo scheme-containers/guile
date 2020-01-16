@@ -27,10 +27,8 @@ RUN sha256sum gc.tar.gz && sha256sum -c checksum
 RUN mkdir gc && tar -C gc --strip-components 1 -xzf gc.tar.gz
 RUN (cd gc && ./configure && make && make install)
 
-RUN git clone --depth 1 git://git.sv.gnu.org/guile.git
-# Should use a specific version, but during this development phase of 3.0 it
-# is more interesting to use the latest and greatest.
-# && cd guile && git reset --hard 374c1e5807a35b16170ed7686abcd5c407554d78
+RUN git clone --depth 1 git://git.sv.gnu.org/guile.git && cd guile && \
+    git reset --hard a0fdb4efc18ce47520170a8ccfd7f3f4c5c99d47
 WORKDIR guile
 RUN ./autogen.sh
 RUN ./configure
