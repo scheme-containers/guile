@@ -23,14 +23,13 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 WORKDIR /build
 COPY checksum checksum
 ADD http://www.hboehm.info/gc/gc_source/gc-7.2g.tar.gz gc.tar.gz
-RUN sha256sum gc.tar.gz && sha256sum -c checksum
+ADD https://ftp.gnu.org/gnu/guile/guile-3.0.2.tar.gz guile.tar.gz
+RUN sha256sum gc.tar.gz guile.tar.gz && sha256sum -c checksum
 RUN mkdir gc && tar -C gc --strip-components 1 -xzf gc.tar.gz
 RUN (cd gc && ./configure && make && make install)
 
-RUN git clone --depth 1 git://git.sv.gnu.org/guile.git && cd guile && \
-    git reset --hard a0fdb4efc18ce47520170a8ccfd7f3f4c5c99d47
+RUN mkdir guile && tar -C guile --strip-components 1 -xzf guile.tar.gz
 WORKDIR guile
-RUN ./autogen.sh
 RUN ./configure
 RUN make -j`nproc`
 RUN make install
