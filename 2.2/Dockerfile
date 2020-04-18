@@ -5,6 +5,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       libffi-dev \
       libgc-dev \
       libgmp-dev \
+      libltdl-dev \
       libncurses-dev \
       libreadline-dev \
       libtinfo-dev \
