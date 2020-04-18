@@ -9,7 +9,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       libreadline-dev \
       libtinfo-dev \
       libunistring-dev \
-      xz \
+      xz-utils \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /build
 COPY checksum checksum
