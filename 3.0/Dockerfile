@@ -22,7 +22,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 
 WORKDIR /build
 COPY checksum checksum
-ADD https://ftp.gnu.org/gnu/guile/guile-3.0.3.tar.gz guile.tar.gz
+ADD https://ftp.gnu.org/gnu/guile/guile-3.0.4.tar.gz guile.tar.gz
 RUN sha256sum guile.tar.gz && sha256sum -c checksum
 RUN mkdir guile && tar -C guile --strip-components 1 -xzf guile.tar.gz
 WORKDIR guile
