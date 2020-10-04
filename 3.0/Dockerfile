@@ -1,24 +1,24 @@
 # -*- mode: dockerfile; coding: utf-8 -*-
 FROM debian:buster-slim AS build
 RUN apt-get update && apt-get -y --no-install-recommends install \
-       build-essential \
-       git \
-       file \
-       libtool \
-       autoconf \
-       automake \
-       libncurses5-dev \
-       libreadline-dev \
-       libltdl-dev \
-       libgmp-dev \
-       texinfo \
-       flex \
-       libunistring-dev \
-       libgc-dev \
-       libffi-dev \
-       pkg-config \
-       gettext \
-  && rm -rf /var/lib/apt/lists/*
+      build-essential \
+      git \
+      file \
+      libtool \
+      autoconf \
+      automake \
+      libncurses5-dev \
+      libreadline-dev \
+      libltdl-dev \
+      libgmp-dev \
+      texinfo \
+      flex \
+      libunistring-dev \
+      libgc-dev \
+      libffi-dev \
+      pkg-config \
+      gettext \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 COPY checksum checksum
@@ -32,8 +32,8 @@ RUN make install
 
 FROM debian:buster-slim
 RUN apt-get update && apt-get -y --no-install-recommends install \
-       libgc1c2 \
-       libltdl7
+      libgc1c2 \
+      libltdl7
 COPY --from=build /usr/local/ /usr/local/
 COPY scheme-script /usr/local/bin/
 RUN ln -s /usr/local/bin/guile /usr/local/bin/scheme-banner
