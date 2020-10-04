@@ -22,12 +22,8 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
 
 WORKDIR /build
 COPY checksum checksum
-ADD http://www.hboehm.info/gc/gc_source/gc-7.2g.tar.gz gc.tar.gz
 ADD https://ftp.gnu.org/gnu/guile/guile-3.0.3.tar.gz guile.tar.gz
-RUN sha256sum gc.tar.gz guile.tar.gz && sha256sum -c checksum
-RUN mkdir gc && tar -C gc --strip-components 1 -xzf gc.tar.gz
-RUN (cd gc && ./configure && make && make install)
-
+RUN sha256sum guile.tar.gz && sha256sum -c checksum
 RUN mkdir guile && tar -C guile --strip-components 1 -xzf guile.tar.gz
 WORKDIR guile
 RUN ./configure
@@ -36,6 +32,7 @@ RUN make install
 
 FROM debian:buster-slim
 RUN apt-get update && apt-get -y --no-install-recommends install \
+       libgc1c2 \
        libltdl7
 COPY --from=build /usr/local/ /usr/local/
 COPY scheme-script /usr/local/bin/
