@@ -35,6 +35,8 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       libtinfo6 \
       libunistring2 \
  && rm -rf /var/lib/apt/lists/*
+COPY --from=build /usr/local/ /usr/local/
 COPY scheme-script /usr/local/bin/
-RUN ln -s /usr/bin/guile /usr/local/bin/scheme-banner
+RUN ln -s /usr/local/bin/guile /usr/local/bin/scheme-banner
+RUN ldconfig || true
 CMD ["scheme-banner"]
